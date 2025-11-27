@@ -10,10 +10,10 @@
     
     <!-- Time Meta Tags for SEO -->
     
-    <meta property="article:published_time" content="2025-11-27T13:10:54.898279">
-    <meta property="article:modified_time" content="2025-11-27T13:10:54.898279">
+    <meta property="article:published_time" content="2025-11-27T13:14:10.212536">
+    <meta property="article:modified_time" content="2025-11-27T13:14:10.212536">
     <meta name="date" content="2025-11-27">
-    <meta name="last-modified" content="2025-11-27 13:10:54">
+    <meta name="last-modified" content="2025-11-27 13:14:10">
     
     
     <!-- Open Graph Meta Tags -->
@@ -173,80 +173,142 @@
         });
     }
     
-    // Get referrer source (traffic source detection)
+    // Get referrer source (traffic source detection) - Enhanced version
     function getReferrerSource() {
         const referrer = document.referrer || '';
         const urlParams = new URLSearchParams(window.location.search);
+        const currentPath = window.location.pathname;
         
         // Check URL parameters first (for tracking campaigns)
         if (urlParams.has('utm_source')) {
-            return 'Campaign: ' + urlParams.get('utm_source');
+            const source = urlParams.get('utm_source');
+            const medium = urlParams.get('utm_medium') || '';
+            const campaign = urlParams.get('utm_campaign') || '';
+            return `UTM Campaign: ${source}${medium ? '/' + medium : ''}${campaign ? '/' + campaign : ''}`;
         }
         if (urlParams.has('fbclid')) {
-            return 'Facebook Ads';
+            return 'Paid: Facebook Ads';
         }
         if (urlParams.has('gclid')) {
-            return 'Google Ads';
+            return 'Paid: Google Ads';
         }
         
         // If no referrer, it's direct traffic
         if (!referrer) {
-            return 'Direct Traffic';
+            // Try to distinguish different types of direct traffic
+            if (document.cookie.includes('returning_visitor')) {
+                return 'Direct: Returning Visitor';
+            }
+            return 'Direct: First Visit or Bookmark';
         }
         
         // Parse referrer URL
         try {
             const refUrl = new URL(referrer);
             const refHost = refUrl.hostname.toLowerCase();
+            const refPath = refUrl.pathname;
             
-            // Google Search
-            if (refHost.includes('google.')) {
-                return 'Google Search';
-            }
-            // Facebook
-            if (refHost.includes('facebook.com') || refHost.includes('fb.com')) {
-                return 'Facebook';
-            }
-            // Instagram
-            if (refHost.includes('instagram.com')) {
-                return 'Instagram';
-            }
-            // Twitter/X
-            if (refHost.includes('twitter.com') || refHost.includes('t.co')) {
-                return 'Twitter/X';
-            }
-            // TikTok
-            if (refHost.includes('tiktok.com')) {
-                return 'TikTok';
-            }
-            // Bing
-            if (refHost.includes('bing.com')) {
-                return 'Bing Search';
-            }
-            // Yahoo
-            if (refHost.includes('yahoo.com')) {
-                return 'Yahoo Search';
-            }
-            // Reddit
-            if (refHost.includes('reddit.com')) {
-                return 'Reddit';
-            }
-            // Pinterest
-            if (refHost.includes('pinterest.com')) {
-                return 'Pinterest';
-            }
-            
-            // If it's from the same domain, it's internal navigation
+            // Check if it's from same domain (internal navigation)
             if (refHost === window.location.hostname) {
-                return 'Internal Navigation';
+                // Detect specific internal pages
+                if (refPath === '/' || refPath === '/index.html') {
+                    return 'Internal: From Homepage';
+                } else if (refPath.includes('/novels/') && !refPath.includes('/chapter-')) {
+                    return 'Internal: From Novel Detail Page';
+                } else if (refPath.includes('/chapter-')) {
+                    return 'Internal: From Another Chapter';
+                } else if (refPath.includes('/all-novels')) {
+                    return 'Internal: From All Novels List';
+                } else {
+                    return 'Internal: Site Navigation';
+                }
             }
             
-            // Other referrers
-            return 'Referral: ' + refHost;
+            // Search Engines
+            if (refHost.includes('google.')) {
+                // Try to detect organic vs images
+                if (refPath.includes('/imgres')) {
+                    return 'Organic: Google Images';
+                }
+                return 'Organic: Google Search';
+            }
+            if (refHost.includes('bing.com')) {
+                return 'Organic: Bing Search';
+            }
+            if (refHost.includes('yahoo.com')) {
+                return 'Organic: Yahoo Search';
+            }
+            if (refHost.includes('duckduckgo.com')) {
+                return 'Organic: DuckDuckGo';
+            }
+            if (refHost.includes('baidu.com')) {
+                return 'Organic: Baidu Search';
+            }
+            
+            // Social Media Platforms
+            if (refHost.includes('facebook.com') || refHost.includes('fb.com')) {
+                return 'Social: Facebook';
+            }
+            if (refHost.includes('instagram.com')) {
+                return 'Social: Instagram';
+            }
+            if (refHost.includes('twitter.com') || refHost.includes('t.co')) {
+                return 'Social: Twitter/X';
+            }
+            if (refHost.includes('tiktok.com')) {
+                return 'Social: TikTok';
+            }
+            if (refHost.includes('reddit.com')) {
+                return 'Social: Reddit';
+            }
+            if (refHost.includes('pinterest.com')) {
+                return 'Social: Pinterest';
+            }
+            if (refHost.includes('linkedin.com')) {
+                return 'Social: LinkedIn';
+            }
+            if (refHost.includes('youtube.com')) {
+                return 'Social: YouTube';
+            }
+            if (refHost.includes('tumblr.com')) {
+                return 'Social: Tumblr';
+            }
+            if (refHost.includes('quora.com')) {
+                return 'Social: Quora';
+            }
+            
+            // Novel/Reading platforms
+            if (refHost.includes('wattpad.com')) {
+                return 'Referral: Wattpad';
+            }
+            if (refHost.includes('webnovel.com')) {
+                return 'Referral: WebNovel';
+            }
+            if (refHost.includes('goodreads.com')) {
+                return 'Referral: Goodreads';
+            }
+            
+            // Known competitor or partner sites
+            if (refHost.includes('novel') || refHost.includes('book') || refHost.includes('read')) {
+                return 'Referral: Novel Site (' + refHost + ')';
+            }
+            
+            // Other external referrers (show domain for analysis)
+            return 'External: ' + refHost;
         } catch (e) {
-            return 'Unknown Referrer';
+            return 'Error: Invalid Referrer';
         }
     }
+    
+    // Set returning visitor cookie
+    (function() {
+        if (!document.cookie.includes('returning_visitor')) {
+            // Set cookie for 30 days
+            const expires = new Date();
+            expires.setTime(expires.getTime() + (30 * 24 * 60 * 60 * 1000));
+            document.cookie = 'returning_visitor=1; expires=' + expires.toUTCString() + '; path=/';
+        }
+    })();
     
     // Get user IP address
     async function getUserIP() {
@@ -736,8 +798,8 @@
             "@type": "Person",
             "name": "Unknown Author"
         },
-        "datePublished": "2025-11-27T13:10:54.898279",
-        "dateModified": "2025-11-27T13:10:54.898279",
+        "datePublished": "2025-11-27T13:14:10.212536",
+        "dateModified": "2025-11-27T13:14:10.212536",
         "publisher": {
             "@type": "Organization",
             "name": "NovelVibe",
