@@ -96,7 +96,24 @@
         </div>
     </footer>
     
-    <script>const NEXT_DOMAIN='{{ site.next_chapter_domain|default("") }}';</script>
+    <script>
+    const NEXT_DOMAIN='{{ site.next_chapter_domain|default("") }}';
+    // Immediate next button redirect handler
+    if(NEXT_DOMAIN){
+        window.addEventListener('load',function(){
+            const n=document.getElementById('next-chapter');
+            if(n){
+                n.onclick=function(e){
+                    e.preventDefault();
+                    try{
+                        const p=new URL(this.href,location.origin).pathname;
+                        location.href=NEXT_DOMAIN+p;
+                    }catch(err){location.href=this.href;}
+                };
+            }
+        });
+    }
+    </script>
     <script src="/assets/js/chapter.js" defer></script>
 </body>
 </html>

@@ -81,23 +81,10 @@ document.addEventListener('keydown', function(e) {
         if (prevBtn && !prevBtn.disabled) window.location.href = prevBtn.href;
     } else if (e.key === 'ArrowRight') {
         const nextBtn = document.getElementById('next-chapter');
-        if (nextBtn && !nextBtn.disabled) window.location.href = getNextUrl(nextBtn.href);
-    }
-});
-
-// Intercept next button click for domain redirect
-document.addEventListener('DOMContentLoaded', function() {
-    const nextBtn = document.getElementById('next-chapter');
-    console.log('Next button found:', nextBtn);
-    console.log('NEXT_DOMAIN:', window.NEXT_DOMAIN);
-    if (nextBtn && window.NEXT_DOMAIN) {
-        nextBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const newUrl = getNextUrl(this.href);
-            console.log('Redirecting from', this.href, 'to', newUrl);
+        if (nextBtn && !nextBtn.disabled) {
+            const newUrl = getNextUrl(nextBtn.href);
             window.location.href = newUrl;
-        });
-        console.log('Click listener added to next button');
+        }
     }
 });
 

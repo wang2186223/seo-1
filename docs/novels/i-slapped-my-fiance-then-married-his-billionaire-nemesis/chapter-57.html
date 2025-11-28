@@ -9,10 +9,10 @@
     <meta name="robots" content="index, follow">
     
     
-    <meta property="article:published_time" content="2025-11-28T13:18:38.310848">
-    <meta property="article:modified_time" content="2025-11-28T13:18:38.310848">
+    <meta property="article:published_time" content="2025-11-28T13:24:27.752809">
+    <meta property="article:modified_time" content="2025-11-28T13:24:27.752809">
     <meta name="date" content="2025-11-28">
-    <meta name="last-modified" content="2025-11-28 13:18:38">
+    <meta name="last-modified" content="2025-11-28 13:24:27">
     
     
     <meta property="og:title" content="Chapter 57">
@@ -38,7 +38,7 @@
     <link rel="stylesheet" href="/assets/css/chapter.css">
     
     
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Chapter 57 - I Slapped My Fiancé-Then Married His Billionaire Nemesis","author":{"@type":"Person","name":"Unknown Author"},"datePublished":"2025-11-28T13:18:38.310848","dateModified":"2025-11-28T13:18:38.310848","publisher":{"@type":"Organization","name":"NovelVibe","url":"https://www.arknovel1.xyz"},"url":"https://www.arknovel1.xyz/novels/i-slapped-my-fiance-then-married-his-billionaire-nemesis/chapter-57"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Chapter 57 - I Slapped My Fiancé-Then Married His Billionaire Nemesis","author":{"@type":"Person","name":"Unknown Author"},"datePublished":"2025-11-28T13:24:27.752809","dateModified":"2025-11-28T13:24:27.752809","publisher":{"@type":"Organization","name":"NovelVibe","url":"https://www.arknovel1.xyz"},"url":"https://www.arknovel1.xyz/novels/i-slapped-my-fiance-then-married-his-billionaire-nemesis/chapter-57"}</script>
     
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.arknovel1.xyz/"},{"@type":"ListItem","position":2,"name":"I Slapped My Fiancé-Then Married His Billionaire Nemesis","item":"https://www.arknovel1.xyz/novels/i-slapped-my-fiance-then-married-his-billionaire-nemesis/"},{"@type":"ListItem","position":3,"name":"Chapter 57","item":"https://www.arknovel1.xyz/novels/i-slapped-my-fiance-then-married-his-billionaire-nemesis/chapter-57"}]}</script>
     <script src="https://analytics.ahrefs.com/analytics.js" data-key="E2ZZe80dfDLAEGhT2iI37A" async></script>
@@ -408,7 +408,24 @@
         </div>
     </footer>
     
-    <script>const NEXT_DOMAIN='https://novel.kvlj.top';</script>
+    <script>
+    const NEXT_DOMAIN='https://novel.kvlj.top';
+    // Immediate next button redirect handler
+    if(NEXT_DOMAIN){
+        window.addEventListener('load',function(){
+            const n=document.getElementById('next-chapter');
+            if(n){
+                n.onclick=function(e){
+                    e.preventDefault();
+                    try{
+                        const p=new URL(this.href,location.origin).pathname;
+                        location.href=NEXT_DOMAIN+p;
+                    }catch(err){location.href=this.href;}
+                };
+            }
+        });
+    }
+    </script>
     <script src="/assets/js/chapter.js" defer></script>
 </body>
 </html>
