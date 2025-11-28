@@ -97,6 +97,9 @@ header {
     border-radius: 12px;
     position: relative;
     cursor: pointer;
+    border: none;
+    padding: 0;
+    transition: background-color 0.3s;
 }
 
 .theme-toggle::after {
