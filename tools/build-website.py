@@ -273,13 +273,15 @@ class WebsiteBuilder:
                     'url': f"/novels/{novel_data['slug']}/chapter-{chapters[i+1]['number']}"
                 }
                 
-            # 准备所有章节列表（用于目录）
+            # 准备所有章节列表（用于目录）- 优化：只传必要信息
             all_chapters = []
+            novel_slug = novel_data['slug']
+            total_chapters = len(chapters)
             for ch in chapters:
                 all_chapters.append({
                     'number': ch['number'],
                     'title': ch['title'],
-                    'url': f"/novels/{novel_data['slug']}/chapter-{ch['number']}"
+                    'url': f"/novels/{novel_slug}/chapter-{ch['number']}"
                 })
             
             # 获取时间戳信息
@@ -299,6 +301,8 @@ class WebsiteBuilder:
                     'author': novel_data['author'],
                     'cover_url': self.get_cover_url(novel_data),
                     'url': f"/novels/{novel_data['slug']}/",
+                    'slug': novel_data['slug'],
+                    'total_chapters': total_chapters,
                     'chapters': all_chapters,
                     'tags': novel_data['tags']
                 },
