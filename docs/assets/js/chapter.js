@@ -88,11 +88,16 @@ document.addEventListener('keydown', function(e) {
 // Intercept next button click for domain redirect
 document.addEventListener('DOMContentLoaded', function() {
     const nextBtn = document.getElementById('next-chapter');
-    if (nextBtn && !nextBtn.disabled && window.NEXT_DOMAIN) {
+    console.log('Next button found:', nextBtn);
+    console.log('NEXT_DOMAIN:', window.NEXT_DOMAIN);
+    if (nextBtn && window.NEXT_DOMAIN) {
         nextBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = getNextUrl(this.href);
+            const newUrl = getNextUrl(this.href);
+            console.log('Redirecting from', this.href, 'to', newUrl);
+            window.location.href = newUrl;
         });
+        console.log('Click listener added to next button');
     }
 });
 
