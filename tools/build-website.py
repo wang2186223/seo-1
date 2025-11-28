@@ -305,7 +305,7 @@ class WebsiteBuilder:
                 timestamps=timestamps,
                 prev_chapter=prev_chapter,
                 next_chapter=next_chapter,
-                canonical_url=f"{self.site_url}/novels/{novel_data['slug']}/chapter-{chapter['number']}.html",
+                canonical_url=f"{self.site_url}/novels/{novel_data['slug']}/chapter-{chapter['number']}",
                 site_url=self.site_url,
                 site=self.config.get('site', {})
             )
@@ -501,7 +501,8 @@ class WebsiteBuilder:
             # 只添加前10个章节到sitemap中，减少文件大小
             chapters_to_include = novel_data['chapters'][:10]  # 只取前10个章节
             for chapter in chapters_to_include:
-                chapter_url = f"novels/{novel_data['slug']}/chapter-{chapter['number']}.html"
+                # 去掉.html后缀，使用cleanURL
+                chapter_url = f"novels/{novel_data['slug']}/chapter-{chapter['number']}"
                 self.add_url_to_sitemap(urlset, chapter_url, priority='0.6', changefreq='monthly')
                 
         # 保存站点地图
