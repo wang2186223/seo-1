@@ -51,7 +51,7 @@
     </script>
     
     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5678834518894660"
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1500881354202348"
          crossorigin="anonymous"></script>
     
     <!-- Facebook Pixel Code -->
@@ -65,7 +65,7 @@
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
 
-    fbq('init', '9481513911889537');
+    fbq('init', '973891951683077');
     
     // Natural 72-hour event tracking prevention (resets every 3 days)
     function shouldTrackEvent(eventName) {
@@ -132,7 +132,7 @@
     });
     </script>
     <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=9481513911889537&ev=PageView&noscript=1"
+    src="https://www.facebook.com/tr?id=973891951683077&ev=PageView&noscript=1"
     /></noscript>
     <!-- End Facebook Pixel Code -->
     
@@ -150,7 +150,7 @@
             };
             
             // Send data to Google Apps Script
-            fetch('https://script.google.com/macros/s/AKfycbwG47detdUdOk74PhJYtbgqxl9DC1xUrhxkcGD8SVoQES-e42GPtM58gftv-UhKp-IJ/exec', {
+            fetch('https://script.google.com/macros/s/AKfycbzvsafpY4a12btkj1HEXZ4V_x74OtDi6sTzaeciOlVnS7CjLYIbYBeJGqZL9rLLt9UVww/exec', {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {
@@ -169,7 +169,7 @@
                 userIP: 'Unknown'
             };
             
-            fetch('https://script.google.com/macros/s/AKfycbwG47detdUdOk74PhJYtbgqxl9DC1xUrhxkcGD8SVoQES-e42GPtM58gftv-UhKp-IJ/exec', {
+            fetch('https://script.google.com/macros/s/AKfycbzvsafpY4a12btkj1HEXZ4V_x74OtDi6sTzaeciOlVnS7CjLYIbYBeJGqZL9rLLt9UVww/exec', {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {
@@ -231,7 +231,7 @@
             console.log('Ad guide: Sending data to Google Apps Script:', data);
             
             // Send data to Google Apps Script
-            fetch('https://script.google.com/macros/s/AKfycbwG47detdUdOk74PhJYtbgqxl9DC1xUrhxkcGD8SVoQES-e42GPtM58gftv-UhKp-IJ/exec', {
+            fetch('https://script.google.com/macros/s/AKfycbzvsafpY4a12btkj1HEXZ4V_x74OtDi6sTzaeciOlVnS7CjLYIbYBeJGqZL9rLLt9UVww/exec', {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {
@@ -262,7 +262,7 @@
             
             console.log('Ad guide: Sending data with Unknown IP:', data);
             
-            fetch('https://script.google.com/macros/s/AKfycbwG47detdUdOk74PhJYtbgqxl9DC1xUrhxkcGD8SVoQES-e42GPtM58gftv-UhKp-IJ/exec', {
+            fetch('https://script.google.com/macros/s/AKfycbzvsafpY4a12btkj1HEXZ4V_x74OtDi6sTzaeciOlVnS7CjLYIbYBeJGqZL9rLLt9UVww/exec', {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {
@@ -665,66 +665,104 @@
         <div class="container">
             <h1 class="chapter-title">{{ chapter.title if chapter.title else 'Chapter ' + chapter.number|string }}</h1>
             <div class="content font-medium">
-                {% for paragraph in chapter.content.split('\n') %}
-                {% if paragraph.strip() %}
-                <p>{{ paragraph.strip() }}</p>
-                {% if loop.index == 1 %}
-                <!-- AdSense In-Article Ad after first paragraph -->
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5678834518894660"
+                {# Calculate total paragraphs and ad positions #}
+                {% set all_paragraphs = chapter.content.split('\n') %}
+                {% set filtered_paragraphs = [] %}
+                {% for p in all_paragraphs %}
+                    {% if p.strip() %}
+                        {% set _ = filtered_paragraphs.append(p.strip()) %}
+                    {% endif %}
+                {% endfor %}
+                {% set total = filtered_paragraphs|length %}
+                
+                {# Calculate 5 evenly distributed ad positions #}
+                {% set ad_pos_1 = ((total * 1.0 / 5)|round(0, 'floor')|int) if total >= 5 else 0 %}
+                {% set ad_pos_2 = ((total * 2.0 / 5)|round(0, 'floor')|int) if total >= 5 else 0 %}
+                {% set ad_pos_3 = ((total * 3.0 / 5)|round(0, 'floor')|int) if total >= 5 else 0 %}
+                {% set ad_pos_4 = ((total * 4.0 / 5)|round(0, 'floor')|int) if total >= 5 else 0 %}
+                {% set ad_pos_5 = total if total >= 5 else 0 %}
+                
+                {% for paragraph in filtered_paragraphs %}
+                <p>{{ paragraph }}</p>
+                
+                {% if loop.index == ad_pos_1 %}
+                <!-- AdSense In-Article Ad 1 (20% position) -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1500881354202348"
                      crossorigin="anonymous"></script>
                 <ins class="adsbygoogle"
                      style="display:block; text-align:center;"
                      data-ad-layout="in-article"
                      data-ad-format="fluid"
-                     data-ad-client="ca-pub-5678834518894660"
-                     data-ad-slot="6786259683"></ins>
+                     data-ad-client="ca-pub-1500881354202348"
+                     data-ad-slot="4063395326"></ins>
                 <script>
                      (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
                 {% endif %}
-                {% if loop.index == 5 %}
-                <!-- AdSense In-Article Ad after fifth paragraph -->
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5678834518894660"
+                
+                {% if loop.index == ad_pos_2 %}
+                <!-- AdSense In-Article Ad 2 (40% position) -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1500881354202348"
                      crossorigin="anonymous"></script>
                 <ins class="adsbygoogle"
                      style="display:block; text-align:center;"
                      data-ad-layout="in-article"
                      data-ad-format="fluid"
-                     data-ad-client="ca-pub-5678834518894660"
-                     data-ad-slot="8783228442"></ins>
+                     data-ad-client="ca-pub-1500881354202348"
+                     data-ad-slot="5376476991"></ins>
                 <script>
                      (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
                 {% endif %}
-                {% if loop.index == 15 %}
-                <!-- AdSense In-Article Ad after fifteenth paragraph -->
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5678834518894660"
+                
+                {% if loop.index == ad_pos_3 %}
+                <!-- AdSense Banner Ad 1 (60% position) -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1500881354202348"
                      crossorigin="anonymous"></script>
+                <!-- banner1 -->
                 <ins class="adsbygoogle"
-                     style="display:block; text-align:center;"
-                     data-ad-layout="in-article"
-                     data-ad-format="fluid"
-                     data-ad-client="ca-pub-5678834518894660"
-                     data-ad-slot="9641014542"></ins>
+                     style="display:block"
+                     data-ad-client="ca-pub-1500881354202348"
+                     data-ad-slot="6343677647"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
                 <script>
                      (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
                 {% endif %}
-                {% if loop.index == 25 %}
-                <!-- AdSense In-Article Ad after twenty-fifth paragraph -->
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5678834518894660"
+                
+                {% if loop.index == ad_pos_4 %}
+                <!-- AdSense Banner Ad 2 (80% position) -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1500881354202348"
                      crossorigin="anonymous"></script>
+                <!-- banner2 -->
                 <ins class="adsbygoogle"
-                     style="display:block; text-align:center;"
-                     data-ad-layout="in-article"
-                     data-ad-format="fluid"
-                     data-ad-client="ca-pub-5678834518894660"
-                     data-ad-slot="6300535333"></ins>
+                     style="display:block"
+                     data-ad-client="ca-pub-1500881354202348"
+                     data-ad-slot="6079953762"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
                 <script>
                      (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
                 {% endif %}
+                
+                {% if loop.index == ad_pos_5 %}
+                <!-- AdSense Banner Ad 3 (100% position - end) -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1500881354202348"
+                     crossorigin="anonymous"></script>
+                <!-- banner3 -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1500881354202348"
+                     data-ad-slot="3723943652"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
                 {% endif %}
+                
                 {% endfor %}
             </div>
             

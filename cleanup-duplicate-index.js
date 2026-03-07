@@ -1,7 +1,7 @@
 // Google Apps Script - 清理重复索引和表格
 // 在 Google Apps Script 编辑器中运行此脚本
 
-const MAIN_SPREADSHEET_ID = '1kEvOkFHVQ92HK0y7I1-8qEjfzYrwt0DFQWEiVNTqXS4';
+const MAIN_SPREADSHEET_ID = '1C0txPMZDHY7QCyPYd6k7pZsSb36KwFRRGfGGHpMkaeE';
 const DATA_FOLDER_NAME = '网站统计数据';
 
 /**
@@ -71,8 +71,8 @@ function cleanupDuplicateSpreadsheets() {
     const file = files.next();
     const name = file.getName();
     
-    // 匹配 ads-recan-YYYY-MM-DD 格式
-    const match = name.match(/^ads-recan-(\d{4}-\d{2}-\d{2})$/);
+    // 匹配 zjy-ads1-YYYY-MM-DD 格式
+    const match = name.match(/^zjy-ads1-(\d{4}-\d{2}-\d{2})$/);
     if (match) {
       const dateString = match[1];
       if (!filesByDate.has(dateString)) {
@@ -140,7 +140,7 @@ function rebuildIndex() {
   while (files.hasNext()) {
     const file = files.next();
     const name = file.getName();
-    const match = name.match(/^ads-recan-(\d{4}-\d{2}-\d{2})$/);
+    const match = name.match(/^zjy-ads1-(\d{4}-\d{2}-\d{2})$/);
     
     if (match) {
       const dateString = match[1];

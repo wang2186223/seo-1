@@ -1,12 +1,12 @@
 // Google Apps Script 代码 - 网站访问统计系统
-// Spreadsheet ID: 1kEvOkFHVQ92HK0y7I1-8qEjfzYrwt0DFQWEiVNTqXS4
+// Spreadsheet ID: 1C0txPMZDHY7QCyPYd6k7pZsSb36KwFRRGfGGHpMkaeE
 
 function doPost(e) {
   try {
     console.log('=== doPost 接收到请求 ===');
     console.log('Request content:', e.postData.contents);
     
-    const spreadsheet = SpreadsheetApp.openById('1kEvOkFHVQ92HK0y7I1-8qEjfzYrwt0DFQWEiVNTqXS4');
+    const spreadsheet = SpreadsheetApp.openById('1C0txPMZDHY7QCyPYd6k7pZsSb36KwFRRGfGGHpMkaeE');
     const data = JSON.parse(e.postData.contents);
     const eventType = data.eventType || 'page_visit';
     
@@ -253,7 +253,7 @@ function cleanupOldSheets(spreadsheet) {
 }
 
 function manualCleanup() {
-  const spreadsheet = SpreadsheetApp.openById('1kEvOkFHVQ92HK0y7I1-8qEjfzYrwt0DFQWEiVNTqXS4');
+  const spreadsheet = SpreadsheetApp.openById('1C0txPMZDHY7QCyPYd6k7pZsSb36KwFRRGfGGHpMkaeE');
   cleanupOldSheets(spreadsheet);
   updateDashboard(spreadsheet, getDateString());
   return '数据清理完成';
@@ -406,13 +406,13 @@ function updateStatsInTable(sheet, newStats, dateLabel) {
 }
 
 function hourlyStatisticsUpdate() {
-  const spreadsheet = SpreadsheetApp.openById('1kEvOkFHVQ92HK0y7I1-8qEjfzYrwt0DFQWEiVNTqXS4');
+  const spreadsheet = SpreadsheetApp.openById('1C0txPMZDHY7QCyPYd6k7pZsSb36KwFRRGfGGHpMkaeE');
   updateStatisticsTable(spreadsheet);
   return '每小时统计更新完成';
 }
 
 function manualStatisticsUpdate() {
-  const spreadsheet = SpreadsheetApp.openById('1kEvOkFHVQ92HK0y7I1-8qEjfzYrwt0DFQWEiVNTqXS4');
+  const spreadsheet = SpreadsheetApp.openById('1C0txPMZDHY7QCyPYd6k7pZsSb36KwFRRGfGGHpMkaeE');
   updateStatisticsTable(spreadsheet);
   return '手动统计更新完成';
 }
@@ -422,7 +422,7 @@ function manualStatisticsUpdate() {
 function testAdGuideEvent() {
   console.log('=== 开始测试广告引导事件 ===');
   
-  const spreadsheet = SpreadsheetApp.openById('1kEvOkFHVQ92HK0y7I1-8qEjfzYrwt0DFQWEiVNTqXS4');
+  const spreadsheet = SpreadsheetApp.openById('1C0txPMZDHY7QCyPYd6k7pZsSb36KwFRRGfGGHpMkaeE');
   
   const testData = {
     eventType: 'ad_guide_triggered',
@@ -458,7 +458,7 @@ function testAdGuideEvent() {
 function sendDailyReport() {
   try {
     console.log('=== 开始执行每日报告发送 ===');
-    const spreadsheet = SpreadsheetApp.openById('1kEvOkFHVQ92HK0y7I1-8qEjfzYrwt0DFQWEiVNTqXS4');
+    const spreadsheet = SpreadsheetApp.openById('1C0txPMZDHY7QCyPYd6k7pZsSb36KwFRRGfGGHpMkaeE');
     const recipientEmail = 'jannatjahan36487@gmail.com';
     
     // 生成报告内容
@@ -565,7 +565,7 @@ ${topBooks.length > 0 ? topBooks.map((book, index) =>
 
 ---
 📧 本邮件由系统自动发送
-🔗 查看完整数据：https://docs.google.com/spreadsheets/d/1kEvOkFHVQ92HK0y7I1-8qEjfzYrwt0DFQWEiVNTqXS4
+🔗 查看完整数据：https://docs.google.com/spreadsheets/d/1C0txPMZDHY7QCyPYd6k7pZsSb36KwFRRGfGGHpMkaeE
   `;
   
   // 生成HTML报告
@@ -726,7 +726,7 @@ ${topBooks.length > 0 ? topBooks.map((book, index) =>
     
     <div class="footer">
       <p>📧 本邮件由系统自动发送</p>
-      <p><a href="https://docs.google.com/spreadsheets/d/1kEvOkFHVQ92HK0y7I1-8qEjfzYrwt0DFQWEiVNTqXS4" target="_blank">🔗 查看完整数据表格</a></p>
+      <p><a href="https://docs.google.com/spreadsheets/d/1C0txPMZDHY7QCyPYd6k7pZsSb36KwFRRGfGGHpMkaeE" target="_blank">🔗 查看完整数据表格</a></p>
     </div>
   </div>
 </body>

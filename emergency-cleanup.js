@@ -1,7 +1,7 @@
 // Google Apps Script - 紧急清理脚本
 // 用于清理大量重复索引和表格
 
-const MAIN_SPREADSHEET_ID = '1kEvOkFHVQ92HK0y7I1-8qEjfzYrwt0DFQWEiVNTqXS4';
+const MAIN_SPREADSHEET_ID = '1C0txPMZDHY7QCyPYd6k7pZsSb36KwFRRGfGGHpMkaeE';
 const DATA_FOLDER_NAME = '网站统计数据';
 
 /**
